@@ -1,0 +1,37 @@
+# Projeto com Angularjs, NodeJS e Autenticação JWT
+
+# App
+app:
+ build: ./config
+ dockerfile: Dockerfile-nginx
+ container_name: jwt-app
+ ports:
+  - 80:80
+ volumes:
+  - ./app:/usr/share/nginx/html
+ working_dir: /app
+ links:
+  - api
+
+# NodeJS App
+api:
+ image: douglaszuqueto/alpine-nodejs:6.3.0
+ container_name: jwt-api
+ ports:
+  - 3000:3000
+ volumes:
+  - ./api:/api
+ working_dir: /api
+ links:
+  - mongodb
+ command: npm start
+
+
+# MongoDB
+mongodb:
+ image: douglaszuqueto/alpine-mongodb:3.2.7
+ container_name: jwt-mongodb
+ ports:
+  - 27017:27017
+ volumes:
+  - mongodb-data:/data/db
