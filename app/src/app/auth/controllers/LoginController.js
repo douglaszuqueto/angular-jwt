@@ -19,7 +19,7 @@ function LoginController($window, $http, $state) {
     function login(user) {
 
         $http({
-            url: 'http://localhost:3000/api/v1/users/login',
+            url: 'http://localhost:3000/api/v1/login',
             method: 'POST',
             data: {'email': user.email, 'password': user.password},
         }).then(function (response) {
