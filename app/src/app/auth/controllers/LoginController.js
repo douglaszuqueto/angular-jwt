@@ -7,8 +7,9 @@ function LoginController($window, $http, $state) {
      * Usuário
      */
     vm.user = {
-        name: '',
-        password: ''
+        email: localStorage.getItem('user.email') || '',
+        password: '',
+        remember: localStorage.getItem('user.email') || false
     };
 
     /**
@@ -24,6 +25,14 @@ function LoginController($window, $http, $state) {
         }).then(function (response) {
             if (response.data.success) {
                 localStorage.setItem('token', response.data.token);
+
+                if (user.remember === true) {
+                    localStorage.setItem('user.email', user.email);
+                    localStorage.setItem('user.remember', user.remember);
+                } else {
+                    localStorage.removeItem('user.remember');
+                    localStorage.removeItem('user.email');
+                }
                 return $state.go('dashboard');
             }
 
