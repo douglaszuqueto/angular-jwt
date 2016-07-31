@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const secret = require('../config/jwt').secret;
 
 module.exports = {
 
@@ -43,10 +45,12 @@ module.exports = {
         });
     },
     create: (data, cb) => {
-        let user = {name: data.name, email: data.email, password: data.password};
+        let user = {
+            name: data.name,
+            email: data.email,
+            password: data.password
+        };
 
-        console.log(user);
-        
         User.create(user, (err, user) => {
 
             let data = {};
@@ -57,7 +61,7 @@ module.exports = {
                     error_message: err
                 };
             }
-            
+
             data = {
                 'data': {user}
             };
@@ -113,6 +117,45 @@ module.exports = {
             return cb(data);
 
         });
+    },
+    login: (data, cb) => {
+        let userData = {
+            email: data.email,
+            password: data.password
+        };
+
+        User.findOne({email: userData.email}, (err, user) => {
+
+            if (err) throw err;
+
+            // Check user exists
+            if (!user) {
+                return cb({
+                    success: false,
+                    message: 'Failed to authenticate user.'
+                });
+            }
+
+            // check if password matches
+            if (user.password != userData.password) {
+                return cb({
+                    success: false,
+                    message: 'Failed to authenticate user.'
+                });
+            }
+
+            let token = jwt.sign(user, secret, {
+                expiresIn: '60m'
+            });
+
+            return cb({
+                success: true,
+                message: 'Enjoy your token!',
+                token: token
+            });
+
+        });
+
     }
 
 };
