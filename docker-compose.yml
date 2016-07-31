@@ -2,7 +2,7 @@
 
 # App
 app:
- build: ./config
+ build: ./docker/app
  dockerfile: Dockerfile-nginx
  container_name: jwt-app
  ports:
