@@ -10,6 +10,4 @@ router.post('/', require('./controllers/create'));
 router.delete('/:id', require('./controllers/delete'));
 router.put('/:id', require('./controllers/update'));
 
-router.post('/login', require('./controllers/login'));
-
 module.exports = router;

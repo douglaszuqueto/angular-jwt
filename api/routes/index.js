@@ -7,9 +7,14 @@ const router = express.Router();
 router.get('/', (req, res) => res.json('API is Running'));
 
 /**
+ * Login
+ */
+router.post('/login', require('./user/controllers/login'));
+
+/**
  * User
  */
-router.use('/users', require('./user/user'));
+router.use('/users', require('../config/middlewares/jwt'), require('./user/user'));
 
 /**
  * Protected Route
