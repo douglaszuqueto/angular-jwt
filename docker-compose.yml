@@ -9,7 +9,6 @@ app:
   - 80:80
  volumes:
   - ./app:/usr/share/nginx/html
- working_dir: /app
  links:
   - api
 
