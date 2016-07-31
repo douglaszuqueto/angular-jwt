@@ -4,6 +4,10 @@ const secret = require('../config/jwt').secret;
 
 module.exports = {
 
+    /**
+     * All Users
+     * @param cb
+     */
     all: (cb) => {
         User.find({}, (err, users) => {
 
@@ -24,6 +28,11 @@ module.exports = {
         });
 
     },
+    /**
+     * Get User by Id
+     * @param id
+     * @param cb
+     */
     get: (id, cb) => {
 
         User.findById(id, (err, user) => {
@@ -44,6 +53,11 @@ module.exports = {
 
         });
     },
+    /**
+     * Create a new User
+     * @param data
+     * @param cb
+     */
     create: (data, cb) => {
         let user = {
             name: data.name,
@@ -69,6 +83,12 @@ module.exports = {
             return cb(data);
         });
     },
+    /**
+     * Update User by Id
+     * @param id
+     * @param data
+     * @param cb
+     */
     update: (id, data, cb) => {
         User.update({'_id': id}, {$set: data}, (err) => {
 
@@ -100,6 +120,11 @@ module.exports = {
 
         });
     },
+    /**
+     * Remove User
+     * @param id
+     * @param cb
+     */
     remove: (id, cb) => {
         User.findByIdAndRemove(id, (err) => {
 
@@ -118,6 +143,11 @@ module.exports = {
 
         });
     },
+    /**
+     * User Login
+     * @param data
+     * @param cb
+     */
     login: (data, cb) => {
         let userData = {
             email: data.email,
@@ -155,7 +185,5 @@ module.exports = {
             });
 
         });
-
     }
-
 };
