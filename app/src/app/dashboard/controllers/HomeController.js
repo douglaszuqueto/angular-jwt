@@ -5,7 +5,7 @@ function HomeController($http, $location) {
 
     vm.page = 'Home';
 
-    $http.get('http://192.168.33.50:3000/api/v1/secret').then(function (response) {
+    $http.get('http://localhost:3000/api/v1/secret').then(function (response) {
         console.log(response.data);
     });
 }
