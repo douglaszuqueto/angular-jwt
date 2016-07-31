@@ -5,12 +5,8 @@ function HomeController($http, $location) {
 
     vm.page = 'Home';
 
-    vm.req = req;
-
-    function req() {
-        $http.get('http://192.168.33.50:3000/api/v1/secret').then(function (response) {
-            console.log(response.data);
-        });
-    }
+    $http.get('http://192.168.33.50:3000/api/v1/secret').then(function (response) {
+        console.log(response.data);
+    });
 }
 HomeController.$inject = ['$http', '$location'];

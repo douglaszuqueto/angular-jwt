@@ -1,6 +1,6 @@
 angular.module('app.auth').controller('LoginController', LoginController);
 
-function LoginController($http, $state) {
+function LoginController($window, $http, $state) {
     var vm = this;
 
     /**
@@ -10,14 +10,6 @@ function LoginController($http, $state) {
         name: '',
         password: ''
     };
-    /**
-     * Mensagens de Erro
-     */
-    vm.error = {
-        message: 'Erro inesperado! Tente Novamente :)',
-        error: false
-    };
-
 
     /**
      * Login do Usuário
@@ -36,13 +28,10 @@ function LoginController($http, $state) {
             }
 
         }, function (error) {
-            vm.error = {
-                message: error.data.message,
-                error: true
-            };
+            $window.Materialize.toast(error.data.message, 3000);
         });
 
-    };
+    }
 
 }
-LoginController.$inject = ['$http', '$state'];
+LoginController.$inject = ['$window', '$http', '$state'];
